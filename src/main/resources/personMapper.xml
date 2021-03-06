@@ -6,4 +6,18 @@
     <select id="queryPersonById" resultType="Entity.Person" parameterType="int">
         select * from person where id = #{id}
     </select>
+
+    <insert id="addPerson" parameterType="Entity.Person">
+           insert into person(id,name,age) values (#{id},#{name},#{age})
+    </insert>
+    <delete id="deletePersonById" parameterType="int">
+        delete from person where id = #{id}
+    </delete>
+    <update id="updatePersonById" parameterType="Entity.Person">
+        update person set name=#{name},age = #{age} where id = #{id}
+    </update>
+    
+    <select id="quaryAllPerson" resultType="Entity.Person">
+        select * from person
+    </select>
 </mapper>
