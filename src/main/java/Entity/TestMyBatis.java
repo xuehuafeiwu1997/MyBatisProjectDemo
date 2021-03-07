@@ -142,7 +142,7 @@ public class TestMyBatis {
 //        quaryAllPerson();
 
 //        addPerson();
-        updatePerson();
+//        updatePerson();
         quaryAllPerson();
     }
 }
