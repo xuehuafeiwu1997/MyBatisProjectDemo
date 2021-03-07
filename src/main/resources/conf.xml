@@ -4,6 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="db.properties"/>
+<!-- 设置myBatis的全局变量   -->
+<!--    <settings>-->
+<!--        <setting name="cacheEnabled" value="false"/>-->
+<!--    </settings>-->
+<!--   设置单个/多个别名 -->
+    <typeAliases>
+              <!-- 设置单个别名（别名在使用时大小写无所谓）-->
+             <typeAlias type="Entity.Person" alias="person" />
+               <!-- 批量设置别名（别名部分大小写） 传入包名，包内的文件的别名就是文件名 别名就是不带包类的类名-->
+             <package name="Entity" />
+    </typeAliases>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
