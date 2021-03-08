@@ -136,6 +136,54 @@ public class TestMyBatis {
 
         sqlSession.close();
     }
+    //使用转换器的方法查找
+    public static void quaryPersonByIdWithConverter() {
+        Reader reader = null;
+        try {
+            reader = Resources.getResourceAsReader("conf.xml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //sqlSessionFactory - connection
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        //sqlSession - connection
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //对应的配置文件和ID名
+//        String statement = "personMapper.queryPersonById";
+        //查询所有的，要使用selectList
+//        List<Person> person = sqlSession.selectList("quaryAllPerson");
+        //动态代理的写法
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+        Person person = personMapper.queryPersonByIdWithConverter(1);
+        System.out.println(person.toString());
+
+        sqlSession.close();
+    }
+
+    public static Person quaryStudentByIdWithOO() {
+        Reader reader = null;
+        try {
+            reader = Resources.getResourceAsReader("conf.xml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //sqlSessionFactory - connection
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        //sqlSession - connection
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //对应的配置文件和ID名
+        String statement = "personMapper.queryPersonById";
+        Person person = sqlSession.selectOne("queryPersonById",1);
+        //动态代理查询的写法
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+        StudentBusiness studentBusiness = personMapper.quaryStudentByNoWithOO(2);
+        System.out.println(studentBusiness.toString());
+        sqlSession.close();
+        return person;
+    }
+
+
+
     public static void main(String[] args) {
 //        quaryAllPerson();
 //        deletePeronById();
@@ -143,6 +191,8 @@ public class TestMyBatis {
 
 //        addPerson();
 //        updatePerson();
-        quaryAllPerson();
+//        quaryAllPerson();
+//        quaryPersonByIdWithConverter();
+        quaryStudentByIdWithOO();
     }
 }

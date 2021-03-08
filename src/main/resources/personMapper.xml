@@ -9,6 +9,23 @@
         select * from person where id = #{id}
     </select>
 
+    <!-- 查询  使用了类型转换器
+    如果类中的属性和表中的字段相同，能够合理识别，则可以使用resultType，否则使用resultMap
+    如果类中的属性名和表中的字段名相同，则使用resultType，否则使用resultMap
+    -->
+    <select id="queryPersonByIdWithConverter" resultMap="personResult" parameterType="int">
+        select * from person where id = #{id}
+    </select>
+
+    <resultMap type="Entity.Person" id="personResult">
+        <!-- 主键和非主键-->
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="age" column="age" />
+        <!-- 类型转换-->
+        <result property="sex" column="sex"  javaType="Boolean" jdbcType="INTEGER"/>
+    </resultMap>
+
     <insert id="addPerson" parameterType="Entity.Person">
            insert into person(id,name,age) values (#{id},#{name},#{age})
     </insert>
@@ -21,5 +38,12 @@
     
     <select id="quaryAllPerson" resultType="Entity.Person">
         select * from person
+    </select>
+
+    <!-- 关联查询 一对一查询 -->
+    <select id="quaryStudentByNoWithOO"  parameterType="int" resultType="Entity.StudentBusiness">
+        select  s.*,c.* from Student s inner join studentCard c
+            on s.cardId = c.cardId
+            where  s.id = #{id}
     </select>
 </mapper>

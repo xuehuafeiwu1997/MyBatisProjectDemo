@@ -20,4 +20,9 @@ public interface PersonMapper {
     //删除
     void deletePersonById(int id);
 
+    //类型转换器查询学生
+    Person queryPersonByIdWithConverter(int id);
+
+    //关联查询一对一
+    StudentBusiness quaryStudentByNoWithOO(int id);
 }

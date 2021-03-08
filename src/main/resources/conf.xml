@@ -9,12 +9,16 @@
 <!--        <setting name="cacheEnabled" value="false"/>-->
 <!--    </settings>-->
 <!--   设置单个/多个别名 -->
-    <typeAliases>
-              <!-- 设置单个别名（别名在使用时大小写无所谓）-->
-             <typeAlias type="Entity.Person" alias="person" />
-               <!-- 批量设置别名（别名部分大小写） 传入包名，包内的文件的别名就是文件名 别名就是不带包类的类名-->
-             <package name="Entity" />
-    </typeAliases>
+<!--    <typeAliases>-->
+<!--              &lt;!&ndash; 设置单个别名（别名在使用时大小写无所谓）&ndash;&gt;-->
+<!--             <typeAlias type="Entity.Person" alias="person" />-->
+<!--               &lt;!&ndash; 批量设置别名（别名部分大小写） 传入包名，包内的文件的别名就是文件名 别名就是不带包类的类名&ndash;&gt;-->
+<!--             <package name="Entity" />-->
+<!--    </typeAliases>-->
+<!--    &lt;!&ndash; 设置自定义类型转换器 &ndash;&gt;-->
+    <typeHandlers>
+        <typeHandler  handler="Entity.BooleanAndIntConverter" javaType="Boolean" jdbcType="INTEGER"/>
+    </typeHandlers>
 
     <environments default="development">
         <environment id="development">
