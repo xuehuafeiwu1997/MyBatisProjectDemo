@@ -182,6 +182,29 @@ public class TestMyBatis {
         return person;
     }
 
+    public static Person quaryStudentByIdWithOO2() {
+        Reader reader = null;
+        try {
+            reader = Resources.getResourceAsReader("conf.xml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //sqlSessionFactory - connection
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        //sqlSession - connection
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //对应的配置文件和ID名
+        String statement = "personMapper.queryPersonById";
+        Person person = sqlSession.selectOne("queryPersonById",1);
+        //动态代理查询的写法
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+//        StudentBusiness studentBusiness = personMapper.quaryStudentByNoWithOO(2);
+        Student student = personMapper.quaryStudentByNoWithOO2(2);
+        System.out.println(student.toString());
+        sqlSession.close();
+        return person;
+    }
+
 
 
     public static void main(String[] args) {
@@ -193,6 +216,7 @@ public class TestMyBatis {
 //        updatePerson();
 //        quaryAllPerson();
 //        quaryPersonByIdWithConverter();
-        quaryStudentByIdWithOO();
+//        quaryStudentByIdWithOO();
+        quaryStudentByIdWithOO2();
     }
 }

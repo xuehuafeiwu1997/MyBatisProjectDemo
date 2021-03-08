@@ -25,4 +25,7 @@ public interface PersonMapper {
 
     //关联查询一对一
     StudentBusiness quaryStudentByNoWithOO(int id);
+
+    //关联查询一对一的另一种写法
+    Student quaryStudentByNoWithOO2(int id);
 }

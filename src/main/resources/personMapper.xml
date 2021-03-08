@@ -40,10 +40,28 @@
         select * from person
     </select>
 
-    <!-- 关联查询 一对一查询 -->
+    <!-- 关联查询 一对一查询 利用业务扩展类实现一对一 -->
     <select id="quaryStudentByNoWithOO"  parameterType="int" resultType="Entity.StudentBusiness">
         select  s.*,c.* from Student s inner join studentCard c
             on s.cardId = c.cardId
             where  s.id = #{id}
     </select>
+    <!-- 利用resultMap实现一对一  -->
+    <select id="quaryStudentByNoWithOO2"  parameterType="int" resultMap="student_card_map">
+        select  s.*,c.* from Student s inner join studentCard c
+                                                  on s.cardId = c.cardId
+        where  s.id = #{id}
+    </select>
+    <resultMap type = "Entity.Student" id="student_card_map">
+        <!-- 学生的信息 -->
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+
+        <!-- 学生证的信息 -->
+        <!-- 一对一时，对象成员使用association映射 javaType指定该属性的类型 -->
+        <association property="card" javaType="Entity.StudentCard">
+            <id property="cardId" column="cardId"/>
+            <result property="cardInfo" column="cardInfo"/>
+        </association>
+    </resultMap>
 </mapper>
